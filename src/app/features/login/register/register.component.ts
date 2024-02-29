@@ -1,51 +1,41 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormGroup, Validators, FormBuilder,FormControl, ValidationErrors, AbstractControl, ReactiveFormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output, inject, signal } from '@angular/core';
+import { FormGroup, FormBuilder, AbstractControl, ReactiveFormsModule, Validators, ValidationErrors } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
 import {AuthService} from '../../../auth/auth.service';
 import {User} from '../../../model/user';
-import {CommonModule} from '@angular/common';
 
 
 @Component({
   selector: 'app-register',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
+  
+  @Output() isModaleVisible = new EventEmitter<boolean>();
+  fb = inject(FormBuilder); 
+  authService = inject(AuthService);
 
   regExpPsw:RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@£€$'!~,;:_^=?*+#.&§%°(){}|[/]{8,}$/;
   regExpEmail:RegExp = /^[\-\w\.]+@([\-\w]+\.)+[\-\w]{2,4}$/;
   regExpUsername:RegExp = /^(?=.{5,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9_]+(?<![_.])$/
 
-  // invio in output il booleano per la visione della modale
-  @Output() isModaleVisible = new EventEmitter<boolean>();
+  isErrorVisible = signal(false);
+  myMessage = signal('');
+  typeMessage = signal(false);
 
-  registerForm!: FormGroup;
-
-  isErrorVisible:boolean = false; // gestione span error/success
-  myMessage:string = '';
-  typeMessage:boolean = false;
-
-  constructor(
-    private fb: FormBuilder, // form builder dei form reactive
-    private authService:AuthService, // Service dell'autenticazione
-  ) { }
-
-  ngOnInit(): void {
-    // reactive form con validazione per il form di registrazione
-    this.registerForm = this.fb.group({
-      registerUsername: new FormControl ('',[Validators.required, Validators.minLength(5), Validators.pattern(this.regExpUsername)]),
-      registerEmail: new FormControl ('',[Validators.required, Validators.email, Validators.pattern(this.regExpEmail)]),
-      registerPassword: new FormControl ('',[Validators.required, Validators.pattern(this.regExpPsw)]),
-      repeatPassword: new FormControl ('', Validators.required),
-      privacy: new FormControl (false, Validators.required),
-    },{
-      Validators: [
-        this.passwordsMatchValidator
-      ]
-    });
-  }
+  registerForm = this.fb.nonNullable.group({
+    registerUsername: ['',[Validators.required, Validators.minLength(5), Validators.pattern(this.regExpUsername)]],
+    registerEmail: ['',[Validators.required, Validators.email, Validators.pattern(this.regExpEmail)]],
+    registerPassword: ['',[Validators.required, Validators.pattern(this.regExpPsw)]],
+    repeatPassword: ['', Validators.required],
+    privacy: [false, Validators.required],
+    },{ validators: [this.passwordsMatchValidator] }
+  );
 
   modalVisible(value:boolean){ // passo il valore true o false in base alla modale che voglio mostrare
     this.isModaleVisible.emit(value)
@@ -59,27 +49,26 @@ export class RegisterComponent implements OnInit {
     } 
 
     this.authService.registerAuthorize(user).subscribe({
-      next: () =>{ 
-        // se avvenuto con successo mostro il messaggio di registrazione avvenuta e mostro la modale login
-        this.typeMessage = true;
-        this.isErrorVisible = true;
-        this.myMessage = 'Registrazione effettuata con successo'
+      next: ()=>{ 
+        this.typeMessage.set(true);
+        this.isErrorVisible.set(true);
+        this.myMessage.set('Registrazione effettuata con successo');
 
         setTimeout(() => {
           this.modalVisible(true);
-          this.isErrorVisible = false;
-          this.myMessage = '';
-          this.typeMessage = false;
+          this.isErrorVisible.set(false);
+          this.myMessage.set('');
+          this.typeMessage.set(false);
         }, 2000); 
       },
       error: err => {
         // gestisco l'errore in modo che si veda lo span e il tipo di errore
-        this.isErrorVisible = true;
-        this.myMessage = `${err.error} | ${err.status} - ${err.statusText}`
+        this.isErrorVisible.set(true);
+        this.myMessage.set(`${err.error} | ${err.status} - ${err.statusText}`);
 
         setTimeout(() => {
-          this.isErrorVisible = false;
-          this.myMessage = ''
+          this.isErrorVisible.set(false);
+          this.myMessage.set('');
         }, 2000);
       }    
     })
