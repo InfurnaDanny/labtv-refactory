@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     /* this.getMovie(); */ 
 
-    this.searchInput.searchInput.subscribe((value: any) =>{
+    /* this.searchInput.searchInput.subscribe((value: any) =>{
       if(value !== ''){
         let newArray: IMovieIMDB[] = this.movieArray.filter(
           el => {return el.fullTitle.toLowerCase().includes(value.toLocaleLowerCase())});
@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
         
       };
        
-    })
+    }) */
   }
 
   /* getMovie(){ // metodo che richiama l'Api Imdb Most Popular Movie

@@ -18,12 +18,12 @@
                 <li><a href="twitter.it"></a></li>
                 <li>
                     <i class="fa-solid fa-magnifying-glass">&nbsp;</i>
-                    <input type="text" placeholder="Cerca film..." [(ngModel)]="searchValue" (input)="searchThis()">
+                    <input type="text" placeholder="Cerca film..." #input (input)="searchThis(input)">
                 </li>
                 @if(!isUserLogged){
                     <li><a routerLink="/login">ACCEDI</a></li>
                 }@else{
-                    <li><a >{{username()}}</a>
+                    <li><a >{{ username() }}</a>
                         <ul>
                             <li><a routerLink="/film_aquistati">Film acquistati</a></li>
                             <li><a (click)="logout()">Logout</a></li>

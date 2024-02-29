@@ -47,7 +47,7 @@
     <button type="submit" id="login" [disabled]="!loginForm.valid">
       ACCEDI
     </button>
-    <span class="error-input" *ngIf="isErrorVisible"> {{ errorMessage() }} </span>
+    <span class="error-input" *ngIf="isErrorVisible()"> {{ errorMessage() }} </span>
 
     <p>Non sei Registrato? <a (click)="modalVisible(false)">Clicca Qui!</a></p>
 

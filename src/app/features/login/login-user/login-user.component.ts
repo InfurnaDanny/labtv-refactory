@@ -33,12 +33,12 @@ export class LoginUserComponent {
   })
 
   // FORM
-  email = signal<string>('');
-  password = signal<string>('');
-  token = signal<string>(''); 
+  email = signal('');
+  password = signal('');
+  token = signal(''); 
 
-  isErrorVisible = signal<boolean>(false);
-  errorMessage = signal<string>('');
+  isErrorVisible = signal(false);
+  errorMessage = signal('');
 
   login(form:FormGroup){
     const user: User = { // assegno le credenziali d'accesso
@@ -47,12 +47,15 @@ export class LoginUserComponent {
     }
     
     this.authService.authorize(user).subscribe({
-      next: (res: Login) => {        
-        localStorage.setItem('loggedIn', res.accessToken);
+      next: (res: Login) => { 
+        this.authService.userID.next(res.user.id);
+        this.authService.isLoggegIn.next(true);
+        this.authService.userName.next(res.user.username);
+        this.authService.userToken.next(res.accessToken);
+
+        localStorage.setItem('token', res.accessToken);
+        localStorage.setItem('idUser', res.user.id);
         localStorage.setItem('username', res.user.username);
-        localStorage.setItem('id', res.user.id);
-        this.authService.userID.set(res.user.id);
-        this.authService.isLoggegIn.set(true);
 
         this.router.navigate(['/home']);
       },

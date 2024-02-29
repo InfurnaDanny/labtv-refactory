@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MovieResearch {
-  searchInput = new Subject<string>();
+  searchInput = signal('');
 }

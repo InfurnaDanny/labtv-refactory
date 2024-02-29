@@ -33,13 +33,17 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class FilmAcquistatiComponent implements OnInit {
   
-  filmAquired = inject(FilmAquiredService);
+  filmAquiredService = inject(FilmAquiredService);
   authService = inject(AuthService);
 
   filmAquiredArray = signal<IFilm[]>([]);
     
   ngOnInit() {
-      this.filmAquired.filmAquired(this.authService.userID()).subscribe(data => this.filmAquiredArray.set(data))
+    this.authService.userID.subscribe(id => {
+      if(id) this.filmAquiredService
+              .getFilmAquired(id)
+              .subscribe(data => this.filmAquiredArray.set(data));
+    })
   }
 
   refundFilm(filmId:string, e:Event){ 
@@ -48,7 +52,7 @@ export class FilmAcquistatiComponent implements OnInit {
     let confirmDelete = confirm('Sei sicuro di voler restituire il film?');
 
     if(confirmDelete){ 
-      this.filmAquired.deleteFilm(+filmId);
+      this.filmAquiredService.deleteFilm(+filmId);
       
       this.filmAquiredArray.set(
         this.filmAquiredArray().filter(el => {return el.idFilm != filmId})

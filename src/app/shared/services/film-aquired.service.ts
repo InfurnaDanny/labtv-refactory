@@ -12,7 +12,7 @@ const DELETE_FILM_API = 'http://localhost:3000/films-acquistati/';
 export class FilmAquiredService {
   http = inject(HttpClient);
 
-  filmAquired(idUser: string){
+  getFilmAquired(idUser: string){
     return this.http.get<IFilm[]>(`${FILM_API}/${idUser}/films-acquistati`)
   }
 

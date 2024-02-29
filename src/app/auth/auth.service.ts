@@ -1,7 +1,8 @@
 import {HttpClient} from "@angular/common/http";
-import {Injectable, inject, signal} from "@angular/core";
+import {Injectable, inject} from "@angular/core";
 import {User} from "../model/user";
 import {Login} from "../model/login.model";
+import {BehaviorSubject} from "rxjs";
 
 
 const LOGIN_API = 'http://localhost:3000/login';
@@ -14,8 +15,11 @@ const REGISTER_API = 'http://localhost:3000/register';
 })
 export class AuthService {
   http = inject(HttpClient);
-  isLoggegIn = signal(false);
-  userID = signal<string>('');
+  
+  isLoggegIn = new BehaviorSubject(false);
+  userID = new BehaviorSubject<string | undefined>(undefined);
+  userName = new BehaviorSubject<string | undefined>(undefined);
+  userToken = new BehaviorSubject<string | undefined>(undefined);
 
   authorize(user: User){
     return this.http.post<Login>(LOGIN_API, user)
