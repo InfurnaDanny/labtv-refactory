@@ -3,7 +3,6 @@ import { Injectable, inject } from '@angular/core';
 
 import { IFilm } from '../../model/film';
 
-
 const FILM_API = 'http://localhost:3000/600/users';
 const DELETE_FILM_API = 'http://localhost:3000/films-acquistati/';
 

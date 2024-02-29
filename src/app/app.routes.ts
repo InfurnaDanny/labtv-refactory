@@ -21,7 +21,7 @@ export const routes: Routes = [
     },
     {
       path:'film_aquistati', 
-      loadComponent: ()=> import('./features/login/film-acquistati/film-acquistati.component').then(m=>m.FilmAcquistatiComponent), 
+      loadComponent: ()=> import('./features/film-acquistati/film-acquistati.component').then(m=>m.FilmAcquistatiComponent), 
       canActivate: [AUTHGUARD]
     },
     {

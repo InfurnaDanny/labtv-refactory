@@ -1,19 +1,28 @@
 import {CommonModule} from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import {RegisterComponent} from './register/register.component';
 import {LoginUserComponent} from './login-user/login-user.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, RegisterComponent, LoginUserComponent],
-  templateUrl: './login.component.html',
+  template: `
+    <section>
+      @if(isModaleVisible()){
+          <app-login-user (isModaleVisible)="isModalVisible($event)"></app-login-user>
+      }@else{
+          <app-register (isModaleVisible)="isModalVisible($event)"></app-register>
+      }
+    </section>
+  `,
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent{
-  @Input() isModaleVisible = true // all'apertura della pagina mostro la modale del login
+  isModaleVisible = signal(true) // all'apertura della pagina mostro la modale del login
 
   isModalVisible(value: boolean){ // dai componenti figli (login/user) dico se la modale è true o false
-    this.isModaleVisible = value;
+    this.isModaleVisible.set(value);
   }
 }

@@ -51,6 +51,8 @@ export class LoginUserComponent {
         localStorage.setItem('loggedIn', res.accessToken);
         localStorage.setItem('username', res.user.username);
         localStorage.setItem('id', res.user.id);
+        this.authService.userID.set(res.user.id);
+        this.authService.isLoggegIn.set(true);
 
         this.router.navigate(['/home']);
       },

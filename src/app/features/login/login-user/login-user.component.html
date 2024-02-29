@@ -1,30 +1,56 @@
-<div id="login-modale" >
+<div id="login-modale">
+  <img src="./../../assets/logo-tipo3.png" alt="logo" />
 
-    <img src="./../../assets/logo-tipo3.png" alt="logo">
+  <form id="loginForm" [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
+    <h1>Login</h1>
 
-    <form id="loginForm" [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
-        <h1>Login</h1>
+    <label for="loginEmail">Email:</label>
+    <input
+      type="text"
+      id="loginEmail"
+      name="loginEmail"
+      formControlName="loginEmail"
+      placeholder="Inserisci la tua mail"
+    />
+    <span
+      class="error-input"
+      *ngIf="
+        loginForm.get('loginEmail')?.invalid &&
+        loginForm.get('loginEmail')?.touched
+      "
+      >Inserisci una mail valida</span
+    >
 
-        <label for="loginEmail">Email:</label>
-        <input type="text" id="loginEmail" name="loginEmail" formControlName="loginEmail"
-        placeholder="Inserisci la tua mail" required>
-        <span class="error-input" *ngIf="loginForm.get('loginEmail')?.invalid && loginForm.get('loginEmail')?.touched">Inserisci una mail valida</span>
-        
-        <label for="loginPassword">Password:</label>
-        <input type="password" id="loginPassword" name="loginPassword" formControlName="loginPassword"
-        placeholder="Inserisci la tua password" autocomplete="off" required>
-        <span class="error-input" *ngIf="loginForm.get('loginPassword')?.invalid && loginForm.get('loginPassword')?.touched">Inserisci una password valida</span>
+    <label for="loginPassword">Password:</label>
+    <input
+      type="password"
+      id="loginPassword"
+      name="loginPassword"
+      formControlName="loginPassword"
+      placeholder="Inserisci la tua password"
+      autocomplete="off"
+    />
+    <span
+      class="error-input"
+      *ngIf="
+        loginForm.get('loginPassword')?.invalid &&
+        loginForm.get('loginPassword')?.touched
+      "
+      >Inserisci una password valida</span
+    >
 
-        <div>
-            <input type="checkbox" name="remember-psw" id="remember-psw">
-            <label for="remember-psw">Ricorda Password</label>
-        </div>
-        
-        <button type="submit" id="login" [disabled]="!loginForm.valid">ACCEDI</button>
-            <span class="error-input " *ngIf="isErrorVisible">{{errorMessage()}}</span>
+    <div>
+      <input type="checkbox" name="remember-psw" id="remember-psw" />
+      <label for="remember-psw">Ricorda Password</label>
+    </div>
 
-        <p>Non sei Registrato? <a (click)="modalVisible(false)">Clicca Qui!</a></p>
+    <button type="submit" id="login" [disabled]="!loginForm.valid">
+      ACCEDI
+    </button>
+    <span class="error-input" *ngIf="isErrorVisible"> {{ errorMessage() }} </span>
 
-        <span class="x"><a routerLink="/home">X</a></span>
-    </form>
+    <p>Non sei Registrato? <a (click)="modalVisible(false)">Clicca Qui!</a></p>
+
+    <span class="x"><a routerLink="/home">X</a></span>
+  </form>
 </div>

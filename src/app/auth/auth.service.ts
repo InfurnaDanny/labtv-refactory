@@ -14,7 +14,8 @@ const REGISTER_API = 'http://localhost:3000/register';
 })
 export class AuthService {
   http = inject(HttpClient);
-  isLoggegIn = signal<boolean>(false);
+  isLoggegIn = signal(false);
+  userID = signal<string>('');
 
   authorize(user: User){
     return this.http.post<Login>(LOGIN_API, user)
