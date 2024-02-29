@@ -1,0 +1,88 @@
+:root {
+    --redlight: #361c1c;
+    --reddark: #261414;
+  }
+  
+  *{
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+      font-family: 'Noto Sans', sans-serif;
+  }
+  body{
+      position: relative;
+      color: white;
+      background: radial-gradient(var(--redlight) 45%, var(--reddark) 60%) fixed;
+      height: 100%;
+      overflow-x: hidden;
+  }
+  a, button{
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--reddark);
+  }
+  
+  /* noto-sans-200 - latin */
+  @font-face {
+      font-family: 'Noto Sans';
+      font-style: normal;
+      font-weight: 200;
+      src: url('./../src/fonts/noto-sans-v27-latin-200.eot'); /* IE9 Compat Modes */
+      src: local('./../src/fonts/noto-sans-v27-latin-200.eot'),
+           url('./../src/fonts/noto-sans-v27-latin-200.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+           url('./../src/fonts/noto-sans-v27-latin-200.woff2') format('woff2'), /* Super Modern Browsers */
+           url('./../src/fonts/noto-sans-v27-latin-200.woff') format('woff'), /* Modern Browsers */
+           url('./../src/fonts/noto-sans-v27-latin-200.ttf') format('truetype'), /* Safari, Android, iOS */
+           url('./../src/fonts/noto-sans-v27-latin-200.svg#NotoSans') format('svg'); /* Legacy iOS */
+    }
+    
+    /* noto-sans-regular - latin */
+    @font-face {
+      font-family: 'Noto Sans';
+      font-style: normal;
+      font-weight: 400;
+      src: url('./../src/fonts/noto-sans-v27-latin-regular.eot'); /* IE9 Compat Modes */
+      src: local('./../src/fonts/noto-sans-v27-latin-regular.eot'),
+           url('./../src/fonts/noto-sans-v27-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+           url('./../src/fonts/noto-sans-v27-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+           url('./../src/fonts/noto-sans-v27-latin-regular.woff') format('woff'), /* Modern Browsers */
+           url('./../src/fonts/noto-sans-v27-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+           url('./../src/fonts/noto-sans-v27-latin-regular.svg#NotoSans') format('svg'); /* Legacy iOS */
+    }
+    /* noto-sans-600 - latin */
+    @font-face {
+      font-family: 'Noto Sans';
+      font-style: normal;
+      font-weight: 600;
+      src: url('./../src/fonts/noto-sans-v27-latin-600.eot'); /* IE9 Compat Modes */
+      src: local('./../src/fonts/noto-sans-v27-latin-600.eot'),
+           url('./../src/fonts/noto-sans-v27-latin-600.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+           url('./../src/fonts/noto-sans-v27-latin-600.woff2') format('woff2'), /* Super Modern Browsers */
+           url('./../src/fonts/noto-sans-v27-latin-600.woff') format('woff'), /* Modern Browsers */
+           url('./../src/fonts/noto-sans-v27-latin-600.ttf') format('truetype'), /* Safari, Android, iOS */
+           url('./../src/fonts/noto-sans-v27-latin-600.svg#NotoSans') format('svg'); /* Legacy iOS */
+    }
+    /* noto-sans-700 - latin */
+    @font-face {
+      font-family: 'Noto Sans';
+      font-style: normal;
+      font-weight: 700;
+      src: url('./../src/fonts/noto-sans-v27-latin-700.eot'); /* IE9 Compat Modes */
+      src: local('./../src/fonts/noto-sans-v27-latin-700.eot'),
+           url('./../src/fonts/noto-sans-v27-latin-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+           url('./../src/fonts/noto-sans-v27-latin-700.woff2') format('woff2'), /* Super Modern Browsers */
+           url('./../src/fonts/noto-sans-v27-latin-700.woff') format('woff'), /* Modern Browsers */
+           url('./../src/fonts/noto-sans-v27-latin-700.ttf') format('truetype'), /* Safari, Android, iOS */
+           url('./../src/fonts/noto-sans-v27-latin-700.svg#NotoSans') format('svg'); /* Legacy iOS */
+    }
+    @font-face {
+      font-family: 'social';
+      src: url('./../src/fonts/social.eot?8285929');
+      src: url('./../src/fonts/social.eot?8285929#iefix') format('embedded-opentype'),
+           url('./../src/fonts/social.woff2?8285929') format('woff2'),
+           url('./../src/fonts/social.woff?8285929') format('woff'),
+           url('./../src/fonts/social.ttf?8285929') format('truetype'),
+           url('./../src/fonts/social.svg?8285929#social') format('svg');
+      font-weight: normal;
+      font-style: normal;
+    }

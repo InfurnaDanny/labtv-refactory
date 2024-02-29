@@ -1,0 +1,72 @@
+<section>
+    <div class="poster">
+        <img [src]='myFilm!.backdrop' [alt]='myFilm!.title'>
+    </div>
+    <!-- <div class="shadow"></div> -->
+        
+    <div class="box-info">
+        <img [src]='myFilm!.poster' [alt]='myFilm!.title'>
+
+        <p>{{myFilm!.releaseDate}} - Durata: {{myFilm!.runtimeStr}}</p>
+        <p>Generi: {{myFilm!.genres}}</p>
+
+        <div>
+            <h1>{{myFilm!.title}}</h1>
+            <button>GUARDA</button>
+            <button *ngIf="aquired" [routerLink]="['/film_aquistati']" 
+            style="background-color: var(--redlight)">RESTITUISCI</button>
+            <button *ngIf="!aquired" (click)="buyMovie(myFilm.id!, myFilm.title!)">COMPRA</button>
+        </div>
+        
+        <h4>{{myFilm.plot}}</h4>
+    </div>
+
+    <ul class="all-detail">
+        <li (click)="tabIsVisible = true">
+            <h2 [ngStyle]="{'border-bottom': tabIsVisible? '2px solid white':0}">SIMILI</h2>
+        </li>
+
+        <li (click)="tabIsVisible = false">
+            <h2 [ngStyle]="{'border-bottom': !tabIsVisible? '2px solid white':0}">DETTAGLI</h2>
+        </li>
+    </ul>
+
+    <drag-scroll [scrollbar-hidden]="true" id="similar" *ngIf="tabIsVisible">
+        <div class="films-large"  *ngFor="let similar of myFilm!.similars">
+                <img drag-scroll-item [src]=similar.image [alt]=similar.title>
+                    <a href="javascript:void(0)" 
+                        [routerLink]="['/film', similar.id]" 
+                        (click)="newMovieDetail(similar.id!)" 
+                        class="play-info">
+                        <h3>{{similar.title}}</h3>
+                        <span><b>Rating:</b> {{similar.imDbRating}}</span>
+                    </a>
+        </div>
+    </drag-scroll>
+
+    <div id="detail" *ngIf="!tabIsVisible">
+        <div>
+            <h2>{{myFilm!.title}}</h2> 
+            <p>{{myFilm!.plot}}</p>
+        </div>
+
+        <div>
+            <p>
+                <b>Durata:</b> {{myFilm!.runtimeStr}} <br>
+                <b>Anno:</b> {{myFilm!.releaseDate}} <br>
+                <b>Genere:</b> {{myFilm!.genres}}
+            </p>
+        </div>
+        <div>
+            <p>
+                <b>Regia:</b> <span *ngFor="let director of myFilm.directorList">
+                    {{director.name}}
+                </span> <br>
+                <b>Cast:</b> <span *ngFor="let cast of myFilm.starList">
+                    {{cast.name}},
+                </span>
+            </p>
+        </div>
+    </div>
+</section>
+

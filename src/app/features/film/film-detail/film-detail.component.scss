@@ -1,0 +1,163 @@
+section{
+    position: relative;
+    padding: 20px 70px;
+    box-shadow: inset 200px -400px 100px 500px rgba(0,0,0, .9);
+}
+
+.box-info{ // box che va dalla copertina alla trama
+    display: flex;
+    flex-direction: column;
+    max-width: 900px;
+    padding-top: 20px;
+
+    img{
+        max-width: 300px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    p{
+        font-size: 12px;
+        letter-spacing: -.1px;
+        line-height: 1.5;
+    }
+
+    button{
+        padding: 15px;
+        font-size: 1.2em;
+        width: 200px;
+        font-weight: bold;
+        color: white;
+        border-radius: 5px;
+        border: 1px solid white;
+        background-color: rgba(0,0,0, .6);
+        margin-right: 15px;
+        transition: .6s;
+
+        &:hover{
+            color: black;
+            background-color: white;
+        }
+
+        &:first-of-type{
+            &::before{
+                content: "\25BA";
+                margin-right: 10px;
+                display: inline-block;
+                font-size: 1em;
+                align-self: center;
+            }
+        }
+    }
+
+    h1,h4{
+        margin: 15px 0px;
+    }
+}
+
+.all-detail{ // link "Simili" e "Dettagli
+    display: flex;
+    margin: 50px 0 20px 0;
+    list-style-type: none;
+    width: 100%;
+
+    li{
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        
+        h2{
+            padding: 10px 0;
+            margin-right: 30px;
+            cursor: pointer;
+
+            &:hover{
+                border-bottom: 2px solid white;
+            }
+        }
+    }
+}
+
+#similar{ // box scroll per i film simili
+    display: flex;
+
+    h3{
+        max-width: 300px;
+    }
+}
+
+.films-large{ // card film simili
+    position: relative;
+    display: flex;
+    flex: 1 0 300px;
+    min-height: 420px;
+    margin: 20px 10px;
+    background-color: gray;
+    box-shadow: #0f0c0c 0px 10px 15px;
+    border-radius: 5px;
+    background-color: #0f0c0c;
+
+    img{
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 10px;
+    }
+
+    &:hover .play-info{
+        display: flex;
+        color: white;
+    }
+    
+    &:hover{
+        transform: scale(1.05);
+        box-shadow: white 0px 4px 0px inset;
+        border: 4px solid white;
+        transition: .5s;
+    }
+}
+
+.play-info{ // hover sulle card
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    justify-content: start;
+    background-color: rgba(0, 0, 0, .7);
+    transition: 2s;
+    
+    h3{
+        align-self: center;
+        margin: 10px;
+    }
+}
+
+#detail{ // box con tutti i dettagli
+    display: flex;
+
+    div{
+        padding: 20px 40px;
+
+        p{
+            line-height: 2.5em;
+        }
+    }
+}
+
+.poster{
+    position: absolute;
+    right: 0%;
+    top: 0;
+    min-width: 100%;
+    height: 100%;
+    margin: 0;
+    z-index: -2;
+}
+
+@media only screen and (max-width: 900px) {
+    #detail{
+        flex-direction: column;
+    }
+}

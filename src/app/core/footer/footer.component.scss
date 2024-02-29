@@ -1,0 +1,42 @@
+#footer{
+    padding: 20px;
+    border-top: 3px solid #534242;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.utility-footer{
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+
+    ul{
+        display: flex;
+        list-style-type: none;
+        justify-content: center;
+        max-width: 70%;
+        flex-wrap: wrap;
+
+        li{
+            text-decoration: none;
+            line-height: 2;
+            margin: 10px;
+
+            a{
+                color: darkgray;
+                pointer-events: none;
+
+                &hover{
+                    color: white;
+                }
+            }
+
+            &:last-of-type{
+                width: 100%;
+                margin-top: 20px;
+            }
+        }
+    }
+}

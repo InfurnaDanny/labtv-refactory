@@ -1,0 +1,49 @@
+{
+  "users": [
+    {
+      "email": "admin@gmail.com",
+      "password": "$2a$10$kpHFFbGFAwIrreaMq8Sis.qaS4Rlg.xFnpQcRdQaKnPk6WAbnpzsq",
+      "username": "Admin",
+      "id": "1"
+    },
+    {
+      "email": "f.danny95@gmail.com",
+      "password": "$2a$10$7SuRhiaCYQsy15ewS5o3heNW21R7cmAyJD5os1IJfjCoblrwKloMO",
+      "username": "Kuro158",
+      "id": "2"
+    },
+    {
+      "email": "admin99@gmail.com",
+      "password": "$2a$10$Z42.K183ZhNTRkV6OBgCYul/10G/fbOCENLd64hDTIiWWqkiFmBvS",
+      "username": "Danny",
+      "id": "3"
+    }
+  ],
+  "posts": [],
+  "films-acquistati": [
+    {
+      "id": "1",
+      "idFilm": "tt1745960",
+      "title": "Top Gun: Maverick",
+      "userId": "1"
+    },
+    {
+      "idFilm": "tt13833688",
+      "title": "The Whale",
+      "userId": "2",
+      "id": "2"
+    },
+    {
+      "idFilm": "tt17663992",
+      "title": "Scream VI",
+      "userId": "2",
+      "id": "3"
+    },
+    {
+      "idFilm": "tt5971474",
+      "title": "The Little Mermaid",
+      "userId": "2",
+      "id": "4"
+    }
+  ]
+}

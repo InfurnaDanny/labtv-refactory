@@ -1,0 +1,35 @@
+<header>
+    <div>
+        <picture>
+            <a href="./labtv.html"><img src="./../../assets/logo-tipo3.png" alt="logo" id="logo"></a>
+        </picture>
+    </div>
+    
+        <nav role="menubar">
+            <input type="checkbox" id="hamburger"/>
+            <label for="hamburger">&#9776;</label> <!-- Burger menu -->
+
+            <ul>
+                <li><a routerLink="/">HOME</a></li>
+                <li><a routerLink="/film">FILM</a></li>
+                <li><a routerLink="/contact">CONTATTI</a></li>
+                <li><a href="facebook.it"></a></li>
+                <li><a href="instagram.com"></a></li>
+                <li><a href="twitter.it"></a></li>
+                <li>
+                    <i class="fa-solid fa-magnifying-glass">&nbsp;</i>
+                    <input type="text" placeholder="Cerca film..." [(ngModel)]="searchValue" (input)="searchThis()">
+                </li>
+                @if(!isUserLogged){
+                    <li><a routerLink="/login">ACCEDI</a></li>
+                }@else{
+                    <li><a >{{username()}}</a>
+                        <ul>
+                            <li><a routerLink="/film_aquistati">Film acquistati</a></li>
+                            <li><a (click)="logout()">Logout</a></li>
+                        </ul>
+                    </li>
+                }
+            </ul>
+        </nav>
+</header>

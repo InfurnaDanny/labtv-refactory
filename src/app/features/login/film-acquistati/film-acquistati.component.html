@@ -1,0 +1,12 @@
+<section>
+    <h1>Tutti i film acquistati:</h1>  
+    <ul>
+        @for(film of filmAquiredArray; track film.idFilm){
+            <li>
+                <div>{{film.idFilm}}</div>
+                <div>{{film.title}}</div>
+                <div><button (click)="refundFilm(film.idFilm, $event)">RESTITUISCI</button><i class="fa-solid fa-xmark"></i></div>
+            </li>
+        }
+    </ul>
+</section>

@@ -1,0 +1,51 @@
+.carousel-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(calc(180% + 60px)); /* la percentuale delle slide + quadruplo */
+    animation: slider 20s 2s infinite;
+}
+
+.slider-img {
+    position: relative;
+    flex: 1 0 90%;
+    max-height: 480px;
+    max-width: 1700px;
+    margin: 20px 20px;
+    box-shadow: #0f0c0c 0 10px 15px;
+
+    &:hover{
+        border: 4px solid aliceblue;
+        transform: scale(1.03);
+        transition: .1s;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    figcaption {
+        position: absolute;
+        font-size: 1.3em;
+        padding: 20px;
+        bottom: 0px;
+        width: 100%;
+        max-height: 30vh;
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+}
+
+@keyframes slider {
+    0%  {transform: translate(calc(180% + 60px))};
+    5% {transform: translate(calc(90% + 30px))};
+    15% {transform: translate(calc(90% + 30px))};
+    25% {transform: translate(0%)};
+    40% {transform: translate(0%)};
+    50% {transform: translate(calc(-90% - 30px))};
+    65% {transform: translate(calc(-90% - 30px))};
+    75% {transform: translate(calc(-180% - 60px))};
+    85% {transform: translate(calc(-180% - 60px))};
+    90% {transform: translate(calc(180% + 60px))};
+    100%{transform: translate(calc(180% + 60px))};
+}
