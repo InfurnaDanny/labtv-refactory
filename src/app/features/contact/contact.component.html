@@ -4,12 +4,11 @@
 
     <div class="chi-siamo">
         <!-- <h2>Contattaci</h2> -->
-        <form action="mailto:contact@labtv.it" method="post" [formGroup]="contactForm" 
-        id="contact-form" (ngSubmit)="contact()">
+        <form action="mailto:contact@labtv.it" [formGroup]="contactForm" id="contact-form" (ngSubmit)="contact()">
             
             <label for="contactNome">Nome e Cognome:</label>
             <input type="text" id="contactNome" name="contactNome" placeholder="Inserisci nome e cognome"
-            formControlName="contactNome" required>
+            formControlName="contactNome">
 
             @if(contactForm.get('contactNome')?.invalid && contactForm.get('contactNome')?.touched){
                 <span class="error-input">Inserisci una nome/cognome valido</span>
@@ -17,7 +16,7 @@
             
             <label for="contactEmail">Email:</label>
             <input type="email" id="contactEmail" name="contactEmail" placeholder="Inserisci la tua mail" 
-            formControlName="contactEmail" required>
+            formControlName="contactEmail">
 
             @if(contactForm.get('contactEmail')?.invalid && contactForm.get('contactEmail')?.touched){
                 <span class="error-input">Inserisci una mail valida</span>
@@ -25,7 +24,7 @@
             
             <label for="contactTel">Numero Telefonico:</label>
             <input type="tel" id="contactTel" name="contactTel" placeholder="Inserisci il tuo numero"
-            formControlName="contactTel" required>
+            formControlName="contactTel">
 
             @if(contactForm.get('contactTel')?.invalid && contactForm.get('contactTel')?.touched){
                 <span class="error-input">Inserisci una numero valido</span>
@@ -40,7 +39,7 @@
             }
     
             <div>
-                <input type="checkbox" name="privacy" id="privacy" formControlName="privacy" required>
+                <input type="checkbox" name="privacy" id="privacy" formControlName="privacy">
                 <label for="privacy" name="privacy" 
                     [ngStyle]="{'color' : contactForm.get('privacy')?.invalid ? 'red' : 'white'}">
                     Ho letto <b>l'informativa</b> sulla privacy e accetto le condizioni
@@ -48,7 +47,9 @@
             </div>
 
             <button type="submit" id="send-msg" [disabled]="!contactForm.valid">INVIA</button>
-            <span [ngClass]="typeMessage === false ? 'error-input' : 'success-input'" *ngIf="isErrorVisible">{{myMessage}}</span>
+            @if(isErrorVisible()){
+                <span [ngClass]="!typeMessage() ? 'error-input' : 'success-input'">{{myMessage()}}</span>
+            }
         </form>
     </div>
 </div>
