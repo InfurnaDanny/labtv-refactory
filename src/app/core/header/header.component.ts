@@ -22,23 +22,37 @@ export class HeaderComponent {
   movieSearch = inject(MovieResearch);
   router = inject(Router)
 
-  username = signal<string | undefined>(undefined);
+  username = signal<string | null>(null);
   isUserLogged = signal(false);
 
   ngOnInit() {
+    this.isUserAuthenticated();
+
     this.authService.userName.subscribe(username => username ? this.username.set(username) : 'Non Autenticato');
     this.authService.isLoggegIn.subscribe(isLogged => this.isUserLogged.set(isLogged));
   }
 
+  isUserAuthenticated(){    
+    if(
+      localStorage.getItem('idUser') && 
+      localStorage.getItem('token') && 
+      localStorage.getItem('username')
+    ){      
+      this.authService.userID.next(localStorage.getItem('idUser'));
+      this.authService.userToken.next(localStorage.getItem('token'));
+      this.authService.userName.next(localStorage.getItem('username'));
+    }
+  }
+
   searchThis(input: HTMLInputElement){
-      this.movieSearch.searchInput.set(input.value)
+    this.movieSearch.searchInput.set(input.value)
   }
   
   logout(){
-    this.authService.userID.next(undefined);
+    this.authService.userID.next(null);
     this.authService.isLoggegIn.next(false);
-    this.authService.userName.next(undefined);
-    this.authService.userToken.next(undefined);
+    this.authService.userName.next(null);
+    this.authService.userToken.next(null);
 
     localStorage.clear();
     

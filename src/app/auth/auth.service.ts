@@ -17,9 +17,9 @@ export class AuthService {
   http = inject(HttpClient);
   
   isLoggegIn = new BehaviorSubject(false);
-  userID = new BehaviorSubject<string | undefined>(undefined);
-  userName = new BehaviorSubject<string | undefined>(undefined);
-  userToken = new BehaviorSubject<string | undefined>(undefined);
+  userID = new BehaviorSubject<string | null>(null);
+  userName = new BehaviorSubject<string | null>(null);
+  userToken = new BehaviorSubject<string | null>(null);
 
   authorize(user: User){
     return this.http.post<Login>(LOGIN_API, user)

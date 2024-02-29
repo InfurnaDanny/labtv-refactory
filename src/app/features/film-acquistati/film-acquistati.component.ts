@@ -25,7 +25,7 @@ import { AuthService } from '../../auth/auth.service';
                     <i class="fa-solid fa-xmark"></i>
                   </div>
               </li>
-          }
+          }@empty {<li>Loading data or No item founded</li>}
       </ul>
     </section>
   `,
