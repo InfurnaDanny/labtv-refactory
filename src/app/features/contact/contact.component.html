@@ -4,7 +4,7 @@
 
     <div class="chi-siamo">
         <!-- <h2>Contattaci</h2> -->
-        <form action="mailto:contact@labtv.it" [formGroup]="contactForm" id="contact-form" (ngSubmit)="contact()">
+        <form action="mailto:contact@labtv.it" [formGroup]="contactForm" id="contact-form" (ngSubmit)="sendEmail()">
             
             <label for="contactNome">Nome e Cognome:</label>
             <input type="text" id="contactNome" name="contactNome" placeholder="Inserisci nome e cognome"

@@ -25,14 +25,14 @@ export class ContactComponent {
     contactEmail: ['',[Validators.required, Validators.email, Validators.pattern(this.regExpEmail)]],
     contactTel: ['',[Validators.required, Validators.pattern(this.regExpTel)]],
     contactMsg: ['',[Validators.required, Validators.minLength(20), Validators.maxLength(150)]],
-    privacy: [false, Validators.required],
+    privacy: [false, Validators.requiredTrue],
   });
 
   isErrorVisible = signal(false); 
   myMessage = signal('');
   typeMessage = signal(false);
 
-  contact(){
+  sendEmail(){
     this.typeMessage.set(true);
     this.isErrorVisible.set(true);
     this.myMessage.set('Messaggio inviato con successo');
