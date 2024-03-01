@@ -1,73 +1,90 @@
-import { Component, OnInit } from '@angular/core';
-import {IMovieIMDB} from '../../model/movieIMDB';
-import {MovieResearch} from '../film/service/movie-research.service';
-import {MovieService} from '../film/service/movie.service';
-import {CarouselComponent} from './carousel/carousel.component';
+import { ChangeDetectionStrategy, Component, OnInit, computed, effect, inject, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
+import { IMovieIMDB } from '../../model/movieIMDB';
+import { MovieResearch } from '../film/service/movie-research.service';
+import { MovieService } from '../film/service/movie.service';
+import { CarouselComponent } from './carousel/carousel.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CarouselComponent],
-  templateUrl: './home.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CarouselComponent, InfiniteScrollModule, RouterLink],
+  template: `
+    <app-carousel></app-carousel>
+
+    <section id="content">
+      <article
+        class="row"
+        infiniteScroll
+        [infiniteScrollDistance]=".5"
+        [infiniteScrollThrottle]="1000"
+        [alwaysCallback]="true"
+        (scrolled)="getMovieOnScroll()"
+      >
+        <h1>I film più popolari</h1>
+        @for (film of movies(); track $index) {
+            <div class="films" name="film">
+                <img [src]="film.image" [alt]="film.title" />
+                <a [routerLink]="['/film', film.imdbid]" class="play">
+                  <h3>{{ film.title }}</h3>
+                  <span><b>Rating:</b> {{ film.rating }}</span>
+                  <span><b>Rank:</b> {{ film.rank }}</span>
+                  <span><b>Anno:</b> {{ film.year }}</span>
+                </a>
+              </div>
+        }
+        @if(currentlyLoading()){
+          <div class="loader"></div> 
+        }
+      </article>
+    </section>
+  `,
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  constructor(private movieService:MovieService, private searchInput: MovieResearch) { }
+  movieService = inject(MovieService);
+  movieSearch = inject(MovieResearch);
   
-  movieArray: IMovieIMDB[] = []; // creo un array che conterrà tutti i film dell'API
-  movie: IMovieIMDB[] = []; // contenitore che verrà iterato nella pagina
-  movieSearched: IMovieIMDB[] = [];
+  movieArray = signal<IMovieIMDB[]>([]); // array che conterrà tutti i film dell'API
+  movies = signal<IMovieIMDB[]>([]); // contenitore che verrà iterato nella pagina
 
-  actNum:number = 2; // questo sarà il moltiplicatore dei film da pushare nell'Array Movie
-  searchValue: string | undefined;
+  actNum = signal(1); // questo sarà il moltiplicatore dei film da pushare nell'Array Movie
+  currentlyLoading = signal(false);
+
+  constructor(){
+    effect(()=>{ // filtro i film in base alla ricerca
+      if(this.movieSearch.searchInput() !== ''){ 
+        let newArray: IMovieIMDB[] = this.movieArray().filter(el => {
+            return el.title.toLowerCase().includes(this.movieSearch.searchInput().toLocaleLowerCase())
+        });
+        
+        this.movies.set([...newArray]);
+      } else{ this.movies.set([...this.movieArray().slice(0,25)]) };
+    }, { allowSignalWrites: true })
+  }
   
-  ngOnInit(): void {
-    /* this.getMovie(); */ 
-
-    /* this.searchInput.searchInput.subscribe((value: any) =>{
-      if(value !== ''){
-        let newArray: IMovieIMDB[] = this.movieArray.filter(
-          el => {return el.fullTitle.toLowerCase().includes(value.toLocaleLowerCase())});
-        
-        this.movie = [...newArray];
-      } else{
-        this.movie = [...this.movieArray.slice(0,75)]
-        console.log(this.movieArray);
-        
-      };
-       
-    }) */
+  ngOnInit() {
+    this.getMovie(); 
   }
 
-  /* getMovie(){ // metodo che richiama l'Api Imdb Most Popular Movie
-    this.movieService.getMovie().subscribe( //chiamo l'api che restituisce la lista film
-      (data)=>{        
-        console.log(data);
-        
-        for(let i = 0; i < data.length; i++){ 
-            // Rimpiazzo un pezzo di stringa che serve a restituirmi l'immagine alla massima risoluzione
-            if(data[i].image.length > 115){
-              data[i].image = data[i].image.slice(0,117)
-            }
-          }
-        
-        this.movieArray = data; // Assegno i dati ricevuti all'array "movieArray"
-
-        for(let i = 0; this.movie.length < 25; i++){ // inietto nel movieArray i primi 25 item
-          this.movie.push(this.movieArray[i])
-        }         
-      })
-  }   */
+  getMovie(){
+    this.movieService.getMovies().subscribe(data => {   
+        this.movieArray.set(data); // Assegno i dati ricevuti all'array "movieArray"
+        this.movies.set(this.movieArray().slice(0,25));   
+    })
+  }
 
   getMovieOnScroll(){
-    /* se i film nell'array iterato sono meno del numero dei film totali dell'API
-       allora ne aggiungo 25 a quelli già presenti e aumento il moltiplicatore */
-    if(this.actNum * 25 <= this.movieArray.length){
-      for(let i = this.movie.length; this.movie.length < this.actNum * 25; i++){
-        this.movie.push(this.movieArray[i])
-      }
-      
-      this.actNum++
+    this.currentlyLoading.set(true);
+
+    if(this.actNum() * 25 >= this.movieArray.length){      
+      this.movies.set(this.movieArray().slice(0, this.actNum() * 25));
+      this.currentlyLoading.set(false);
     }
+    this.actNum.update(n => n = n+1);
   }
 }

@@ -44,8 +44,8 @@ export class HeaderComponent {
     }
   }
 
-  searchThis(input: HTMLInputElement){
-    this.movieSearch.searchInput.set(input.value)
+  searchThis(input: HTMLInputElement){    
+    this.movieSearch.searchInput.set(input.value);
   }
   
   logout(){
