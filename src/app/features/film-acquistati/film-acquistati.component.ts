@@ -48,12 +48,11 @@ export class FilmAcquistatiComponent implements OnInit {
 
   refundFilm(filmId:string, e:Event){ 
     e.preventDefault();
-    
-    let confirmDelete = confirm('Sei sicuro di voler restituire il film?');
+    const id = localStorage.getItem('idUser')!;
 
-    if(confirmDelete){ 
-      this.filmAquiredService.deleteFilm(+filmId);
-      
+    let confirmDelete = confirm('Sei sicuro di voler restituire il film?');
+    if(confirmDelete){
+      this.filmAquiredService.deleteFilm(filmId, id).subscribe(() => alert('Film restituito correttamente'));
       this.filmAquiredArray.set(
         this.filmAquiredArray().filter(el => {return el.idFilm != filmId})
       ); 

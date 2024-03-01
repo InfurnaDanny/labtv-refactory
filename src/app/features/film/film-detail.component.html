@@ -1,0 +1,63 @@
+<section>
+    <div class="poster">
+        <img [src]='myFilm()?.backdrop' [alt]='myFilm()?.title'>
+    </div>
+        
+    <div class="box-info">
+        <img [src]='myFilm()?.poster' [alt]='myFilm()?.title'>
+
+        <p>{{myFilm()?.released}} - Durata: {{myFilm()?.runtime}}m</p>
+        <p>Anno: {{myFilm()?.year}}</p>
+
+        <div>
+            <h1>{{myFilm()?.title}}</h1>
+            <button>GUARDA</button>
+            @if(aquired()){
+                <button (click)="refundFilm($event)" style="background-color: var(--redlight)">
+                    RESTITUISCI
+                </button>
+            }@else{
+                <button (click)="buyMovie()">COMPRA</button>
+            }
+        </div>
+        
+        <h4>{{myFilm()?.description}}</h4>
+    </div>
+
+    <ul class="all-detail">
+        <li (click)="tabIsVisible.set(true)">
+            <h2 [ngStyle]="{'border-bottom': tabIsVisible()? '2px solid white':0}">DETTAGLI</h2>
+        </li>
+
+        <li (click)="tabIsVisible.set(false)">
+            <h2 [ngStyle]="{'border-bottom': !tabIsVisible()? '2px solid white':0}">RECENSIONI</h2>
+        </li>
+    </ul>
+
+    @if(tabIsVisible()){
+        <div id="detail">
+            <div>
+                <h2>{{myFilm()?.title}}</h2> 
+                <p>{{myFilm()?.description}}</p>
+            </div>
+    
+            <div>
+                <p>
+                    <b>Durata:</b> {{myFilm()?.runtime}}m <br>
+                    <b>Anno:</b> {{myFilm()?.year}} <br>
+                    <b>Certificato:</b> {{myFilm()?.certification}}m <br>
+                </p>
+            </div>
+            <div>
+                <p>
+                    <b>Score:</b> {{myFilm()?.score}} <br>
+                    <b>Media score:</b> {{myFilm()?.score_average}} <br>
+                    <b>Rating età:</b> {{myFilm()?.age_rating}}
+                </p>
+            </div>
+        </div>
+    }@else {
+        <div id="detail"></div>
+    }
+</section>
+

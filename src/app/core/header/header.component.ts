@@ -3,9 +3,9 @@ import { FormsModule } from '@angular/forms';
 
 import { Router, RouterLink } from '@angular/router';
 
-import {AuthService} from '../../auth/auth.service';
-import {MovieResearch} from '../../features/film/service/movie-research.service';
-import {CommonModule} from '@angular/common';
+import { AuthService } from '../../auth/auth.service';
+import { CommonModule } from '@angular/common';
+import { MovieService } from '../../features/film/service/movie.service';
 
 
 @Component({
@@ -19,7 +19,7 @@ import {CommonModule} from '@angular/common';
 export class HeaderComponent {
   
   authService = inject(AuthService);
-  movieSearch = inject(MovieResearch);
+  movieSearch = inject(MovieService);
   router = inject(Router)
 
   username = signal<string | null>(null);

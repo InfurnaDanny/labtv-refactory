@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit, computed, effect, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, effect, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { IMovieIMDB } from '../../model/movieIMDB';
-import { MovieResearch } from '../film/service/movie-research.service';
 import { MovieService } from '../film/service/movie.service';
 import { CarouselComponent } from './carousel/carousel.component';
 
@@ -47,7 +46,6 @@ import { CarouselComponent } from './carousel/carousel.component';
 })
 export class HomeComponent implements OnInit {
   movieService = inject(MovieService);
-  movieSearch = inject(MovieResearch);
   
   movieArray = signal<IMovieIMDB[]>([]); // array che conterrà tutti i film dell'API
   movies = signal<IMovieIMDB[]>([]); // contenitore che verrà iterato nella pagina
@@ -57,9 +55,9 @@ export class HomeComponent implements OnInit {
 
   constructor(){
     effect(()=>{ // filtro i film in base alla ricerca
-      if(this.movieSearch.searchInput() !== ''){ 
+      if(this.movieService.searchInput() !== ''){ 
         let newArray: IMovieIMDB[] = this.movieArray().filter(el => {
-            return el.title.toLowerCase().includes(this.movieSearch.searchInput().toLocaleLowerCase())
+            return el.title.toLowerCase().includes(this.movieService.searchInput().toLocaleLowerCase())
         });
         
         this.movies.set([...newArray]);
