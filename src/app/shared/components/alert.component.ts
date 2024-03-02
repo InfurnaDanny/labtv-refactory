@@ -21,9 +21,9 @@ import {AlertService} from './alert.service';
   styles: `
     .alert{
       display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 400px
+      width: 400px;
+      padding: 10px;
+      border-radius: 5px;
       position: absolute;
       top: 20px;
       right: 20px;
