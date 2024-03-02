@@ -1,7 +1,8 @@
 import {CommonModule} from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import {RegisterComponent} from './register/register.component';
-import {LoginUserComponent} from './login-user/login-user.component';
+
+import { RegisterComponent } from './register/register.component';
+import { LoginUserComponent } from './login-user/login-user.component';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ import {LoginUserComponent} from './login-user/login-user.component';
       }
     </section>
   `,
-  styleUrls: ['./login.component.scss']
+  styles: '',
 })
 export class LoginComponent{
   isModaleVisible = signal(true) // all'apertura della pagina mostro la modale del login

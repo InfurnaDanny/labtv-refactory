@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 
 import { AuthService } from '../../../auth/auth.service';
 import { Login } from '../../../model/login.model';
-import {User} from '../../../model/user';
+import { User } from '../../../model/user';
+import { AlertService } from '../../../shared/components/alert.service';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class LoginUserComponent {
   router = inject(Router);
   fb = inject(FormBuilder);
   authService = inject(AuthService);
+  alertService = inject(AlertService);
 
   regExpPsw: RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@£€$'!~,;:_^=?*+#.&§%°(){}|[/]{8,}$/;
   regExpEmail: RegExp = /^[\-\w\.]+@([\-\w]+\.)+[\-\w]{2,4}$/;
@@ -31,14 +33,6 @@ export class LoginUserComponent {
     loginEmail: ['', [Validators.required, Validators.email, Validators.pattern(this.regExpEmail)]],
     loginPassword: ['',[Validators.required, Validators.pattern(this.regExpPsw)]]
   })
-
-  // FORM
-  email = signal('');
-  password = signal('');
-  token = signal(''); 
-
-  isErrorVisible = signal(false);
-  errorMessage = signal('');
 
   login(form:FormGroup){
     const user: User = { // assegno le credenziali d'accesso
@@ -60,13 +54,7 @@ export class LoginUserComponent {
         this.router.navigate(['/home']);
       },
       error:(err) => {
-        this.isErrorVisible.set(true);
-        this.errorMessage.set(`${err.error} | ${err.status} - ${err.statusText}`);
-
-        setTimeout(() => {
-          this.isErrorVisible.set(false);
-          this.errorMessage.set('');
-        }, 2000);
+        this.alertService.showAlert('error', `${err.error} | ${err.status} - ${err.statusText}`);
       }}
     )
   }

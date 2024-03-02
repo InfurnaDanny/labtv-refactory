@@ -100,11 +100,6 @@
     <button type="submit" id="register" [disabled]="!registerForm.valid">
       Registrati
     </button>
-    <span
-      [ngClass]="typeMessage() === false ? 'error-input' : 'success-input'"
-      *ngIf="isErrorVisible"
-      >{{ myMessage() }}</span
-    >
 
     <p>Sei già registrato? <a (click)="modalVisible(true)">Fai il Login!</a></p>
 
