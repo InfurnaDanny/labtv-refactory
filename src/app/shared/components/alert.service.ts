@@ -13,8 +13,8 @@ export class AlertService {
     this.typeOfAlert.set(type);
     this.isAlertVisible.set(true);
 
-    /* setTimeout(() => {
+    setTimeout(() => {
       this.isAlertVisible.set(false)
-    }, 2500); */
+    }, 2500);
   }
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, effect, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -44,7 +44,7 @@ import { CarouselComponent } from './carousel/carousel.component';
   `,
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   movieService = inject(MovieService);
   
   movieArray = signal<IMovieIMDB[]>([]); // array che conterrà tutti i film dell'API
@@ -62,10 +62,8 @@ export class HomeComponent implements OnInit {
         
         this.movies.set([...newArray]);
       } else{ this.movies.set([...this.movieArray().slice(0,25)]) };
-    }, { allowSignalWrites: true })
-  }
-  
-  ngOnInit() {
+    }, { allowSignalWrites: true });
+
     this.getMovie(); 
   }
 
