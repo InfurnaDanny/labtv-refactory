@@ -48,7 +48,7 @@ export class RegisterComponent {
 
     this.authService.registerAuthorize(user).subscribe({
       next: ()=>{ 
-        this.alertService.showAlert('success', 'Registrazione effettuata con successo');
+        this.alertService.showAlert('success', 'Registrazione effettuata con successo!');
       },
       error: err => {
         this.alertService.showAlert('error', `${err.error} | ${err.status} - ${err.statusText}`);

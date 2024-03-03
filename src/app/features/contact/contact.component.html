@@ -3,7 +3,6 @@
     <img src="./../../assets/footer.png" alt="logo-footer">
 
     <div class="chi-siamo">
-        <!-- <h2>Contattaci</h2> -->
         <form action="mailto:contact@labtv.it" [formGroup]="contactForm" id="contact-form" (ngSubmit)="sendEmail()">
             
             <label for="contactNome">Nome e Cognome:</label>
@@ -47,9 +46,6 @@
             </div>
 
             <button type="submit" id="send-msg" [disabled]="!contactForm.valid">INVIA</button>
-            @if(isErrorVisible()){
-                <span [ngClass]="!typeMessage() ? 'error-input' : 'success-input'">{{myMessage()}}</span>
-            }
         </form>
     </div>
 </div>

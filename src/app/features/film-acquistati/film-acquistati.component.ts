@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FilmAquiredService } from '../../shared/services/film-aquired.service';
 import { IFilm } from '../../model/film';
 import { AuthService } from '../../auth/auth.service';
+import { AlertService } from '../../shared/components/alert.service';
 
 @Component({
   selector: 'app-film-acquistati',
@@ -31,18 +32,17 @@ import { AuthService } from '../../auth/auth.service';
   `,
   styleUrls: ['./film-acquistati.component.scss']
 })
-export class FilmAcquistatiComponent implements OnInit {
+export class FilmAcquistatiComponent {
   
   filmAquiredService = inject(FilmAquiredService);
   authService = inject(AuthService);
+  alertService = inject(AlertService);
 
   filmAquiredArray = signal<IFilm[]>([]);
     
-  ngOnInit() {
+  constructor() {
     this.authService.userID.subscribe(id => {
-      if(id) this.filmAquiredService
-              .getFilmAquired(id)
-              .subscribe(data => this.filmAquiredArray.set(data));
+      if(id) this.filmAquiredService.getFilmAquired(id).subscribe(data => this.filmAquiredArray.set(data));
     })
   }
 
@@ -50,9 +50,13 @@ export class FilmAcquistatiComponent implements OnInit {
     e.preventDefault();
     const id = localStorage.getItem('idUser')!;
 
-    let confirmDelete = confirm('Sei sicuro di voler restituire il film?');
+    const confirmDelete = confirm('Sei sicuro di voler restituire il film?');
+
     if(confirmDelete){
-      this.filmAquiredService.deleteFilm(filmId, id).subscribe(() => alert('Film restituito correttamente'));
+      this.filmAquiredService.deleteFilm(filmId, id).subscribe(() => 
+          this.alertService.showAlert('success', 'Film restituito correttamente')
+      );
+
       this.filmAquiredArray.set(
         this.filmAquiredArray().filter(el => {return el.idFilm != filmId})
       ); 

@@ -42,6 +42,8 @@ export class LoginUserComponent {
     
     this.authService.authorize(user).subscribe({
       next: (res: Login) => { 
+        this.alertService.showAlert('success', 'Accesso effettuato con successo!');
+        
         this.authService.userID.next(res.user.id);
         this.authService.isLoggegIn.next(true);
         this.authService.userName.next(res.user.username);
