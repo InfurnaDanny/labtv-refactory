@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { RouterLink } from '@angular/router';
@@ -8,6 +8,7 @@ import { IMovieIMDB } from '../../../model/movieIMDB';
 @Component({
   selector: 'app-movies',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, InfiniteScrollModule, RouterLink],
   template: `
     <section id="content">
