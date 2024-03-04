@@ -1,48 +1,23 @@
 import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
+import { CarouselComponent } from './carousel/carousel.component';
+import { MoviesComponent } from './movies/movies.component';
 
 import { IMovieIMDB } from '../../model/movieIMDB';
 import { MovieService } from '../film/service/movie.service';
-import { CarouselComponent } from './carousel/carousel.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CarouselComponent, InfiniteScrollModule, RouterLink],
+  imports: [CarouselComponent, InfiniteScrollModule, RouterLink, MoviesComponent],
   template: `
     <app-carousel></app-carousel>
-
-    <section id="content">
-      <article
-        class="row"
-        infiniteScroll
-        [infiniteScrollDistance]=".5"
-        [infiniteScrollThrottle]="1000"
-        [alwaysCallback]="true"
-        (scrolled)="getMovieOnScroll()"
-      >
-        <h1>I film più popolari</h1>
-        @for (film of movies(); track $index) {
-            <div class="films" name="film">
-                <img [src]="film.image" [alt]="film.title" />
-                <a [routerLink]="['/film', film.imdbid]" class="play">
-                  <h3>{{ film.title }}</h3>
-                  <span><b>Rating:</b> {{ film.rating }}</span>
-                  <span><b>Rank:</b> {{ film.rank }}</span>
-                  <span><b>Anno:</b> {{ film.year }}</span>
-                </a>
-              </div>
-        }
-        @if(currentlyLoading()){
-          <div class="loader"></div> 
-        }
-      </article>
-    </section>
+    <app-movies [movies]="movies()" (getMovieOnScroll)="getMovieOnScroll()"></app-movies>   
   `,
-  styleUrls: ['./home.component.scss']
+  styles: ``,
 })
 export class HomeComponent {
   movieService = inject(MovieService);
@@ -51,7 +26,6 @@ export class HomeComponent {
   movies = signal<IMovieIMDB[]>([]); // contenitore che verrà iterato nella pagina
 
   actNum = signal(1); // questo sarà il moltiplicatore dei film da pushare nell'Array Movie
-  currentlyLoading = signal(false);
 
   constructor(){
     effect(()=>{ // filtro i film in base alla ricerca
@@ -69,17 +43,14 @@ export class HomeComponent {
 
   getMovie(){
     this.movieService.getMovies().subscribe(data => {   
-        this.movieArray.set(data); // Assegno i dati ricevuti all'array "movieArray"
+        this.movieArray.set(data);
         this.movies.set(this.movieArray().slice(0,25));   
     })
   }
 
   getMovieOnScroll(){
-    this.currentlyLoading.set(true);
-
     if(this.actNum() * 25 >= this.movieArray.length){      
       this.movies.set(this.movieArray().slice(0, this.actNum() * 25));
-      this.currentlyLoading.set(false);
     }
     this.actNum.update(n => n = n+1);
   }
