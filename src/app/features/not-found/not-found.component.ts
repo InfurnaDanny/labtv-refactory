@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   standalone: true,
   template: `
     <div>
-      <img src="./../../assets/404.png" alt="">
+      <img src="./../../assets/404.png" alt="404 - Page not found" title="404 - Page not found">
     </div>
   `,
   styles: `
