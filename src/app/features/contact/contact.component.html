@@ -1,51 +1,67 @@
 <div id="contact">
+  <img src="./../../assets/footer.png" alt="logo-footer" />
 
-    <img src="./../../assets/footer.png" alt="logo-footer">
+  <div class="chi-siamo">
+    <form
+      action="mailto:contact@labtv.it"
+      [formGroup]="contactForm"
+      (ngSubmit)="sendEmail()"
+    >
+      <label for="nome">Nome e Cognome:</label>
+      <input
+        type="text"
+        name="nome"
+        placeholder="Inserisci nome e cognome"
+        formControlName="nome"
+      />
 
-    <div class="chi-siamo">
-        <form action="mailto:contact@labtv.it" [formGroup]="contactForm" id="contact-form" (ngSubmit)="sendEmail()">
-            
-            <label for="contactNome">Nome e Cognome:</label>
-            <input type="text" id="contactNome" name="contactNome" placeholder="Inserisci nome e cognome"
-            formControlName="contactNome">
+      @if(contactForm.get('nome')?.invalid && contactForm.get('nome')?.touched){
+      <span class="error-input">Inserisci una nome/cognome valido</span>
+      }
 
-            @if(contactForm.get('contactNome')?.invalid && contactForm.get('contactNome')?.touched){
-                <span class="error-input">Inserisci una nome/cognome valido</span>
-            }
-            
-            <label for="contactEmail">Email:</label>
-            <input type="email" id="contactEmail" name="contactEmail" placeholder="Inserisci la tua mail" 
-            formControlName="contactEmail">
+      <label for="email">Email:</label>
+      <input
+        type="email"
+        name="email"
+        placeholder="Inserisci la tua mail"
+        formControlName="email"
+      />
 
-            @if(contactForm.get('contactEmail')?.invalid && contactForm.get('contactEmail')?.touched){
-                <span class="error-input">Inserisci una mail valida</span>
-            }
-            
-            <label for="contactTel">Numero Telefonico:</label>
-            <input type="tel" id="contactTel" name="contactTel" placeholder="Inserisci il tuo numero"
-            formControlName="contactTel">
+      @if(contactForm.get('email')?.invalid && contactForm.get('email')?.touched){
+        <span class="error-input">Inserisci una mail valida</span>
+      }
 
-            @if(contactForm.get('contactTel')?.invalid && contactForm.get('contactTel')?.touched){
-                <span class="error-input">Inserisci una numero valido</span>
-            }
-            
-            <label for="contactMsg">Messaggio:</label>
-            <textarea id="contactMsg" name="contactMsg" formControlName="contactMsg"
-             placeholder="Inserisci il tuo messaggio"></textarea>
+      <label for="tel">Numero Telefonico:</label>
+      <input
+        type="tel"
+        name="tel"
+        placeholder="Inserisci il tuo numero"
+        formControlName="tel"
+      />
 
-            @if(contactForm.get('contactMsg')?.invalid && contactForm.get('contactMsg')?.touched){
-                <span class="error-input">Il messaggio deve avere almeno 20 caratteri</span>
-            }
-    
-            <div>
-                <input type="checkbox" name="privacy" id="privacy" formControlName="privacy">
-                <label for="privacy" name="privacy" 
-                    [ngStyle]="{'color' : contactForm.get('privacy')?.invalid ? 'red' : 'white'}">
-                    Ho letto <b>l'informativa</b> sulla privacy e accetto le condizioni
-                </label>
-            </div>
+      @if(contactForm.get('tel')?.invalid && contactForm.get('tel')?.touched){
+        <span class="error-input">Inserisci una numero valido</span>
+      }
 
-            <button type="submit" id="send-msg" [disabled]="!contactForm.valid">INVIA</button>
-        </form>
-    </div>
+      <label for="msg">Messaggio:</label>
+      <textarea
+        name="msg"
+        formControlName="msg"
+        placeholder="Inserisci il tuo messaggio"
+      ></textarea>
+
+      @if(contactForm.get('msg')?.invalid && contactForm.get('msg')?.touched){
+        <span class="error-input">Il messaggio deve avere almeno 20 caratteri</span>
+      }
+
+      <div>
+        <input type="checkbox" name="privacy" formControlName="privacy" />
+        <label for="privacy" name="privacy" [ngStyle]="{color: contactForm.get('privacy')?.invalid ? 'red' : 'white'}">
+          Ho letto <b>l'informativa</b> sulla privacy e accetto le condizioni
+        </label>
+      </div>
+
+      <button type="submit" [disabled]="!contactForm.valid"> INVIA </button>
+    </form>
+  </div>
 </div>

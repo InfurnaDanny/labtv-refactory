@@ -4,6 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AlertService } from '../../shared/components/alert.service';
+import {REGEX_EMAIL, REGEX_NAME, REGEX_TEL} from '../../costants';
 
 @Component({
   selector: 'app-contact',
@@ -19,15 +20,11 @@ export class ContactComponent {
   router = inject(Router);
   alertService = inject(AlertService);
 
-  regExpName:RegExp = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/;
-  regExpTel:RegExp = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
-  regExpEmail:RegExp = /^[\-\w\.]+@([\-\w]+\.)+[\-\w]{2,4}$/;
-
   contactForm = this.fb.nonNullable.group({
-    contactNome: ['', [Validators.required, Validators.minLength(5), Validators.pattern(this.regExpName)]],
-    contactEmail: ['', [Validators.required, Validators.email, Validators.pattern(this.regExpEmail)]],
-    contactTel: ['', [Validators.required, Validators.pattern(this.regExpTel)]],
-    contactMsg: ['', [Validators.required, Validators.minLength(20), Validators.maxLength(150)]],
+    nome: ['', [Validators.required, Validators.minLength(5), Validators.pattern(REGEX_NAME)]],
+    email: ['', [Validators.required, Validators.email, Validators.pattern(REGEX_EMAIL)]],
+    tel: ['', [Validators.required, Validators.pattern(REGEX_TEL)]],
+    msg: ['', [Validators.required, Validators.minLength(20), Validators.maxLength(150)]],
     privacy: [false, Validators.requiredTrue],
   });
 
