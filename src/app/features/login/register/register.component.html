@@ -1,106 +1,72 @@
 <div id="register-modale">
   <img src="./../../assets/logo-tipo3.png" alt="logo" />
 
-  <form
-    id="registerForm"
-    [formGroup]="registerForm"
-    (ngSubmit)="register(registerForm)"
-  >
+  <form [formGroup]="registerForm" (ngSubmit)="register()">
     <h1>Registrati</h1>
 
-    <label for="registerUsername">Username:</label>
+    <label for="username">Username:</label>
     <input
       type="text"
-      id="registerUsername"
-      name="registerUsername"
-      formControlName="registerUsername"
+      name="username"
+      formControlName="username"
       placeholder="Inserisci un Username"
     />
-    <span
-      class="error-input"
-      *ngIf="
-        registerForm.get('registerUsername')?.invalid &&
-        registerForm.get('registerUsername')?.touched
-      "
-      >Inserisci un Username valido</span
-    >
+    @if(registerForm.get('username')?.invalid && registerForm.get('username')?.touched){
+      <span class="error-input">Inserisci un Username valido</span>
+    }
 
-    <label for="registerEmail">Email:</label>
+    <label for="email">Email:</label>
     <input
       type="text"
-      id="registerEmail"
-      name="registerEmail"
-      formControlName="registerEmail"
+      name="email"
+      formControlName="email"
       placeholder="Inserisci la tua mail"
     />
-    <span
-      class="error-input"
-      *ngIf="
-        registerForm.get('registerEmail')?.invalid &&
-        registerForm.get('registerEmail')?.touched
-      "
-      >Inserisci una mail valida</span
-    >
+    @if(registerForm.get('email')?.invalid && registerForm.get('email')?.touched){
+      <span class="error-input">Inserisci una mail valida</span>
+    }
 
-    <label for="registerPassword">Password:</label>
+    <label for="password">Password:</label>
     <input
       type="password"
-      id="registerPassword"
-      name="registerPassword"
-      formControlName="registerPassword"
+      name="password"
+      formControlName="password"
       placeholder="Inserisci la tua password"
       autocomplete="off"
     />
-    <span
-      class="error-input"
-      *ngIf="
-        registerForm.get('registerPassword')?.invalid &&
-        registerForm.get('registerPassword')?.touched
-      "
-    >
-      Inserisci una password valida <br />
-      [Min 8 Caratteri, 1 Maiusc, 1 carattere speciale]
-    </span>
+    @if(registerForm.get('password')?.invalid && registerForm.get('password')?.touched){
+      <span class="error-input">
+        Inserisci una password valida <br />
+        [Min 8 Caratteri, 1 Maiusc, 1 carattere speciale]
+      </span>
+    }
 
     <label for="repeatPassword">Ripeti password:</label>
     <input
       type="password"
-      id="repeatPassword"
       name="repeatPassword"
       formControlName="repeatPassword"
       placeholder="Ripeti la tua password"
       autocomplete="off"
     />
-    <span
-      class="error-input"
-      *ngIf="registerForm.hasError('passwordsMismatch')"
-    >
-      Le password non combaciano
-    </span>
+    @if(registerForm.hasError('passwordsMismatch')){
+      <span class="error-input">Le password non combaciano</span>
+    }
 
     <div>
       <input
         type="checkbox"
         name="privacy"
-        id="privacy"
         formControlName="privacy"
       />
-      <label
-        for="privacy"
-        name="privacy"
-        [ngStyle]="{
-          color: registerForm.get('privacy')?.invalid ? 'red' : 'black'
-        }"
-      >
+      <label for="privacy" name="privacy" [ngStyle]="{ color: registerForm.get('privacy')?.invalid ? 'red' : 'black'}">
         Ho letto <b>l'informativa</b>
         sulla privacy e accetto le condizioni
       </label>
     </div>
 
-    <button type="submit" id="register" [disabled]="!registerForm.valid">
-      Registrati
-    </button>
-
+    <button type="submit" [disabled]="!registerForm.valid"> Registrati </button>
+    
     <p>Sei già registrato? <a (click)="modalVisible(true)">Fai il Login!</a></p>
 
     <span class="x"><a routerLink="/home">X</a></span>

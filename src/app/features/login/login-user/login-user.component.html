@@ -1,52 +1,38 @@
 <div id="login-modale">
   <img src="./../../assets/logo-tipo3.png" alt="logo" />
 
-  <form id="loginForm" [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
+  <form id="loginForm" [formGroup]="loginForm" (ngSubmit)="login()">
     <h1>Login</h1>
 
-    <label for="loginEmail">Email:</label>
+    <label for="email">Email:</label>
     <input
       type="text"
-      id="loginEmail"
-      name="loginEmail"
-      formControlName="loginEmail"
+      name="email"
+      formControlName="email"
       placeholder="Inserisci la tua mail"
     />
-    <span
-      class="error-input"
-      *ngIf="
-        loginForm.get('loginEmail')?.invalid &&
-        loginForm.get('loginEmail')?.touched
-      "
-      >Inserisci una mail valida</span
-    >
+    @if(loginForm.get('email')?.invalid && loginForm.get('email')?.touched){
+      <span class="error-input">Inserisci una mail valida</span>
+    }
 
-    <label for="loginPassword">Password:</label>
+    <label for="password">Password:</label>
     <input
       type="password"
-      id="loginPassword"
-      name="loginPassword"
-      formControlName="loginPassword"
+      name="password"
+      formControlName="password"
       placeholder="Inserisci la tua password"
       autocomplete="off"
     />
-    <span
-      class="error-input"
-      *ngIf="
-        loginForm.get('loginPassword')?.invalid &&
-        loginForm.get('loginPassword')?.touched
-      "
-      >Inserisci una password valida</span
-    >
+    @if(loginForm.get('password')?.invalid && loginForm.get('password')?.touched){
+      <span class="error-input">Inserisci una password valida</span>
+    }
 
     <div>
-      <input type="checkbox" name="remember-psw" id="remember-psw" />
+      <input type="checkbox" name="remember-psw" />
       <label for="remember-psw">Ricorda Password</label>
     </div>
 
-    <button type="submit" id="login" [disabled]="!loginForm.valid">
-      ACCEDI
-    </button>
+    <button type="submit" [disabled]="!loginForm.valid">ACCEDI</button>
 
     <p>Non sei Registrato? <a (click)="modalVisible(false)">Clicca Qui!</a></p>
 

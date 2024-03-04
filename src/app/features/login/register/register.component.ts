@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import {AuthService} from '../../../auth/auth.service';
 import {User} from '../../../model/user';
 import {AlertService} from '../../../shared/components/alert.service';
+import {REGEX_EMAIL, REGEX_PASSWORD, REGEX_USERNAME} from '../../../costants';
 
 
 @Component({
@@ -18,32 +19,25 @@ import {AlertService} from '../../../shared/components/alert.service';
 export class RegisterComponent {
   
   @Output() isModaleVisible = new EventEmitter<boolean>();
+
   fb = inject(FormBuilder); 
   authService = inject(AuthService);
   alertService = inject(AlertService);
 
-  regExpPsw:RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@£€$'!~,;:_^=?*+#.&§%°(){}|[/]{8,}$/;
-  regExpEmail:RegExp = /^[\-\w\.]+@([\-\w]+\.)+[\-\w]{2,4}$/;
-  regExpUsername:RegExp = /^(?=.{5,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9_]+(?<![_.])$/;
-
   registerForm = this.fb.nonNullable.group({
-    registerUsername: ['',[Validators.required, Validators.minLength(5), Validators.pattern(this.regExpUsername)]],
-    registerEmail: ['',[Validators.required, Validators.email, Validators.pattern(this.regExpEmail)]],
-    registerPassword: ['',[Validators.required, Validators.pattern(this.regExpPsw)]],
+    username: ['',[Validators.required, Validators.minLength(5), Validators.pattern(REGEX_USERNAME)]],
+    email: ['',[Validators.required, Validators.email, Validators.pattern(REGEX_EMAIL)]],
+    password: ['',[Validators.required, Validators.pattern(REGEX_PASSWORD)]],
     repeatPassword: ['', Validators.required],
     privacy: [false, Validators.required],
     },{ validators: [this.passwordsMatchValidator] }
   );
 
-  modalVisible(value:boolean){ // passo il valore true o false in base alla modale che voglio mostrare
-    this.isModaleVisible.emit(value)
-  }
-
-  register(form:FormGroup){    
-    const user:User = { // salvo i valori registrati
-      username: form.value.registerUsername,
-      email: form.value.registerEmail,
-      password: form.value.registerPassword
+  register(){    
+    const user: User = {
+      username: this.registerForm.get('username')!.value,
+      email: this.registerForm.get('email')!.value,
+      password: this.registerForm.get('password')!.value,
     } 
 
     this.authService.registerAuthorize(user).subscribe({
@@ -56,8 +50,12 @@ export class RegisterComponent {
     })
   }
 
+  modalVisible(value:boolean){ // passo il valore true o false in base alla modale che voglio mostrare
+    this.isModaleVisible.emit(value)
+  }
+
   passwordsMatchValidator(control: AbstractControl): ValidationErrors | null {
-    const password = control.get('registerPassword');
+    const password = control.get('password');
     const repeatPassword = control.get('repeatPassword');
 
     if(password!.value !== '' && repeatPassword!.value !== ''){

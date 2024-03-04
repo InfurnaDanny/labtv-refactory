@@ -6,6 +6,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { MovieService } from '../../features/film/service/movie.service';
+import {UserService} from '../../shared/services/user.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ import { MovieService } from '../../features/film/service/movie.service';
 })
 export class HeaderComponent {
   
-  authService = inject(AuthService);
+  userService = inject(UserService);
   movieSearch = inject(MovieService);
   router = inject(Router)
 
@@ -28,8 +29,8 @@ export class HeaderComponent {
   ngOnInit() {
     this.isUserAuthenticated();
 
-    this.authService.userName.subscribe(username => username ? this.username.set(username) : 'Non Autenticato');
-    this.authService.isLoggegIn.subscribe(isLogged => this.isUserLogged.set(isLogged));
+    this.userService.userName.subscribe(username => username ? this.username.set(username) : 'Non Autenticato');
+    this.userService.isLoggegIn.subscribe(isLogged => this.isUserLogged.set(isLogged));
   }
 
   isUserAuthenticated(){    
@@ -38,9 +39,9 @@ export class HeaderComponent {
       localStorage.getItem('token') && 
       localStorage.getItem('username')
     ){      
-      this.authService.userID.next(localStorage.getItem('idUser'));
-      this.authService.userToken.next(localStorage.getItem('token'));
-      this.authService.userName.next(localStorage.getItem('username'));
+      this.userService.userID.next(localStorage.getItem('idUser'));
+      this.userService.userToken.next(localStorage.getItem('token'));
+      this.userService.userName.next(localStorage.getItem('username'));
     }
   }
 
@@ -49,10 +50,10 @@ export class HeaderComponent {
   }
   
   logout(){
-    this.authService.userID.next(null);
-    this.authService.isLoggegIn.next(false);
-    this.authService.userName.next(null);
-    this.authService.userToken.next(null);
+    this.userService.userID.next(null);
+    this.userService.isLoggegIn.next(false);
+    this.userService.userName.next(null);
+    this.userService.userToken.next(null);
 
     localStorage.clear();
     

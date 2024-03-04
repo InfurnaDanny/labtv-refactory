@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { FilmAquiredService } from '../../shared/services/film-aquired.service';
 import { IFilm } from '../../model/film';
-import { AuthService } from '../../auth/auth.service';
 import { AlertService } from '../../shared/components/alert.service';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-film-acquistati',
@@ -35,13 +35,13 @@ import { AlertService } from '../../shared/components/alert.service';
 export class FilmAcquistatiComponent {
   
   filmAquiredService = inject(FilmAquiredService);
-  authService = inject(AuthService);
+  userService = inject(UserService);
   alertService = inject(AlertService);
 
   filmAquiredArray = signal<IFilm[]>([]);
     
   constructor() {
-    this.authService.userID.subscribe(id => {
+    this.userService.userID.subscribe(id => {
       if(id) this.filmAquiredService.getFilmAquired(id).subscribe(data => this.filmAquiredArray.set(data));
     })
   }
