@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output, inject, signal } from '@angular/core';
-import { FormGroup, FormBuilder, AbstractControl, ReactiveFormsModule, Validators, ValidationErrors } from '@angular/forms';
+import { FormBuilder, AbstractControl, ReactiveFormsModule, Validators, ValidationErrors } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-import {AuthService} from '../../../auth/auth.service';
-import {User} from '../../../model/user';
-import {AlertService} from '../../../shared/components/alert.service';
-import {REGEX_EMAIL, REGEX_PASSWORD, REGEX_USERNAME} from '../../../costants';
+import { AuthService } from '../../../auth/auth.service';
+import { User } from '../../../model/user';
+import { AlertService } from '../../../shared/components/alert.service';
+import { REGEX_EMAIL, REGEX_PASSWORD, REGEX_USERNAME } from '../../../costants';
 
 
 @Component({

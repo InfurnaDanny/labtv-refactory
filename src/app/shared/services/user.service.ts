@@ -1,8 +1,9 @@
 import { Injectable, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+
 import { Login } from '../../model/login.model';
-import {AlertService} from '../components/alert.service';
-import {Router} from '@angular/router';
+import { AlertService } from '../components/alert.service';
 
 @Injectable({
   providedIn: 'root',
@@ -26,5 +27,28 @@ export class UserService {
     localStorage.setItem('token', res.accessToken);
     localStorage.setItem('idUser', res.user.id);
     localStorage.setItem('username', res.user.username);
+  }
+
+  isUserAuthenticated(){    
+    if(
+      localStorage.getItem('idUser') && 
+      localStorage.getItem('token') && 
+      localStorage.getItem('username')
+    ){      
+      this.userID.next(localStorage.getItem('idUser'));
+      this.userToken.next(localStorage.getItem('token'));
+      this.userName.next(localStorage.getItem('username'));
+    }
+  }
+
+  logout(){
+    this.userID.next(null);
+    this.isLoggegIn.next(false);
+    this.userName.next(null);
+    this.userToken.next(null);
+
+    localStorage.clear();
+    
+    this.router.navigate(['/login']);
   }
 }
