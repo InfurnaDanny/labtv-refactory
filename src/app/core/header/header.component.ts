@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -20,14 +20,8 @@ export class HeaderComponent {
   userService = inject(UserService);
   movieSearch = inject(MovieService);
 
-  username = signal<string | null>(null);
-  isUserLogged = signal(false);
-
   ngOnInit() {
     this.userService.isUserAuthenticated();
-
-    this.userService.userName.subscribe(username => username ? this.username.set(username) : 'Non Autenticato');
-    this.userService.isLoggegIn.subscribe(isLogged => this.isUserLogged.set(isLogged));
   }
 
   searchThis(input: HTMLInputElement){    

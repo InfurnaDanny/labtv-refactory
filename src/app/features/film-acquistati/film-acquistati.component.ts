@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FilmAquiredService } from '../../shared/services/film-aquired.service';
@@ -41,8 +41,10 @@ export class FilmAcquistatiComponent {
   filmAquiredArray = signal<IFilm[]>([]);
     
   constructor() {
-    this.userService.userID.subscribe(id => {
-      if(id) this.filmAquiredService.getFilmAquired(id).subscribe(data => this.filmAquiredArray.set(data));
+    effect(()=>{
+      if(this.userService.userID()){
+        this.filmAquiredService.getFilmAquired(this.userService.userID()!).subscribe(data => this.filmAquiredArray.set(data))
+      }
     })
   }
 

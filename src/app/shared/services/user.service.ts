@@ -1,6 +1,5 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
 
 import { Login } from '../../model/login.model';
 import { AlertService } from '../components/alert.service';
@@ -13,16 +12,16 @@ export class UserService {
   alertService = inject(AlertService);
   router = inject(Router);
 
-  isLoggegIn = new BehaviorSubject(false);
-  userID = new BehaviorSubject<string | null>(null);
-  userName = new BehaviorSubject<string | null>(null);
-  userToken = new BehaviorSubject<string | null>(null);
+  isLoggegIn = signal(false);
+  userID = signal<string | null>(null);
+  userName = signal<string | null>(null);
+  userToken = signal<string | null>(null);
 
   saveUserData(res: Login) {
-    this.userID.next(res.user.id);
-    this.isLoggegIn.next(true);
-    this.userName.next(res.user.username);
-    this.userToken.next(res.accessToken);
+    this.userID.set(res.user.id);
+    this.isLoggegIn.set(true);
+    this.userName.set(res.user.username);
+    this.userToken.set(res.accessToken);
 
     localStorage.setItem('token', res.accessToken);
     localStorage.setItem('idUser', res.user.id);
@@ -35,17 +34,18 @@ export class UserService {
       localStorage.getItem('token') && 
       localStorage.getItem('username')
     ){      
-      this.userID.next(localStorage.getItem('idUser'));
-      this.userToken.next(localStorage.getItem('token'));
-      this.userName.next(localStorage.getItem('username'));
+      this.userID.set(localStorage.getItem('idUser'));
+      this.userToken.set(localStorage.getItem('token'));
+      this.userName.set(localStorage.getItem('username'));
+      this.isLoggegIn.set(true);
     }
   }
 
   logout(){
-    this.userID.next(null);
-    this.isLoggegIn.next(false);
-    this.userName.next(null);
-    this.userToken.next(null);
+    this.userID.set(null);
+    this.isLoggegIn.set(false);
+    this.userName.set(null);
+    this.userToken.set(null);
 
     localStorage.clear();
     

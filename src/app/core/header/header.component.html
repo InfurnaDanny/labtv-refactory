@@ -20,10 +20,10 @@
                 <i class="fa-solid fa-magnifying-glass">&nbsp;</i>
                 <input type="text" placeholder="Cerca film..." #input (input)="searchThis(input)">
             </li>
-            @if(!isUserLogged){
+            @if(!userService.isLoggegIn()){
                 <li><a routerLink="/login">ACCEDI</a></li>
             }@else{
-                <li><a >{{ username() }}</a>
+                <li><a >{{ userService.userName() }}</a>
                     <ul>
                         <li><a routerLink="/film_aquistati">Film acquistati</a></li>
                         <li><a (click)="userService.logout()">Logout</a></li>
