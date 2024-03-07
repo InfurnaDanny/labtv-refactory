@@ -1,35 +1,57 @@
+import {NgOptimizedImage} from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-carousel',
   standalone: true,
+  imports: [NgOptimizedImage],
   template: `
     <section role="main"> 
           <section class="carousel-content">
               
               <figure class="slider-img">
-                  <figcaption>Lo Hobbit</figcaption>
-                  <a><img src="./../../assets/slider-img/slide1.jpg" alt="Lo Hobbit" title="Lo Hobbit"></a>
+                    <figcaption>Lo Hobbit</figcaption>
+                    <a>
+                        <img ngSrc="./../../assets/slider-img/slide1.jpg" alt="Lo Hobbit" title="Lo Hobbit"
+                            height="319" width="1186" priority="high"
+                        >
+                    </a>
               </figure>
 
               <figure class="slider-img">
                   <figcaption>The Avengers - Endgame</figcaption>
-                  <a><img src="./../../assets/slider-img/slide2.jpg" alt="Avengers" title="Avengers"></a>
+                    <a>
+                        <img ngSrc="./../../assets/slider-img/slide2.jpg" alt="Avengers" title="Avengers"
+                            height="319" width="1186" priority="high"
+                        >
+                    </a>
               </figure>
 
               <figure class="slider-img">
                   <figcaption>Transformers - Rise of the Beasts</figcaption>
-                  <a><img src="./../../assets/slider-img/slide3.jpg" alt="Transformers" title="Transformers"></a>
+                  <a>
+                    <img ngSrc="./../../assets/slider-img/slide3.jpg" alt="Transformers" title="Transformers"
+                        height="319" width="1186" priority="high"
+                    >
+                </a>
               </figure>
 
               <figure class="slider-img">
                   <figcaption>Your Name.</figcaption>
-                  <a><img src="./../../assets/slider-img/slide4.jpg" alt="Your Name." title="Your Name."></a>
+                  <a>
+                    <img ngSrc="./../../assets/slider-img/slide4.jpg" alt="Your Name." title="Your Name."
+                        height="319" width="1186" priority="high"
+                    >
+                </a>
               </figure>
 
               <figure class="slider-img">
                   <figcaption>Venom - La furia di Carnage</figcaption>
-                  <a><img src="./../../assets/slider-img/slide5.jpg" alt="Venom" title="Venom"></a>
+                  <a>
+                    <img ngSrc="./../../assets/slider-img/slide5.jpg" alt="Venom" title="Venom"
+                        height="319" width="1186" priority="high"
+                    >
+                </a>
               </figure>
 
           </section>

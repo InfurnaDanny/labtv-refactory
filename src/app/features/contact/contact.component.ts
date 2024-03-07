@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -9,10 +9,14 @@ import { ContactFormComponent } from './contact-form/contact-form.component';
   selector: 'app-contact',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ContactFormComponent],
+  imports: [CommonModule, ContactFormComponent, NgOptimizedImage],
   template: `
     <div id="contact">
-    <img src="./../../assets/footer.png" alt="logo-footer" />
+    <img ngSrc="./../../assets/footer.png" alt="logo-footer" 
+        height="500" width="500" 
+        sizes="(max-width: 500px) 100vw, 50vw"
+        priority="high"
+    />
 
     <div class="chi-siamo">
       <app-contact-form (sendEmail)="sendEmail()"></app-contact-form>

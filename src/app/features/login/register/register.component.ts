@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output, inject, signal } from '@angular/core';
 import { FormBuilder, AbstractControl, ReactiveFormsModule, Validators, ValidationErrors } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 
 import { AuthService } from '../../../auth/auth.service';
 import { User } from '../../../model/user';
@@ -12,7 +12,7 @@ import { REGEX_EMAIL, REGEX_PASSWORD, REGEX_USERNAME } from '../../../costants';
   selector: 'app-register',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, NgOptimizedImage],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })

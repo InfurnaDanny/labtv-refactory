@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output, inject } from '@angular/core';
 import { Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 
 import { AuthService } from '../../../auth/auth.service';
@@ -14,7 +14,7 @@ import {REGEX_EMAIL, REGEX_PASSWORD} from '../../../costants';
   selector: 'app-login-user',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, NgOptimizedImage],
   templateUrl: './login-user.component.html',
   styleUrls: ['./login-user.component.scss']
 })
