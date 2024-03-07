@@ -4,17 +4,19 @@ import { Injectable, signal } from '@angular/core';
   providedIn: 'root'
 })
 export class AlertService {
-  typeOfAlert = signal<'success' | 'info' | 'error'>('error');
-  msg = signal('');
+  typeOfAlert = signal<TypeOfAlert>('error');
+  msg = signal('Errore');
   isAlertVisible = signal(false);
 
-  showAlert(type: 'success' | 'info' | 'error', msg: string){
+  showAlert(type: TypeOfAlert, msg: string, timer?: number){
     this.msg.set(msg);
     this.typeOfAlert.set(type);
     this.isAlertVisible.set(true);
 
     setTimeout(() => {
       this.isAlertVisible.set(false)
-    }, 2500);
+    }, timer ? timer : 2500);
   }
 }
+
+type TypeOfAlert = 'success' | 'info' | 'error';

@@ -1,18 +1,18 @@
-import { ChangeDetectionStrategy, Component, Input, computed, inject, signal } from '@angular/core';
-import { CommonModule, NgTemplateOutlet } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {AlertService} from './alert.service';
 
 @Component({
   selector: 'app-alert',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, NgTemplateOutlet],
+  imports: [CommonModule],
   template: `
-    @if(isAlertVisible()){
+    @if(alertService.isAlertVisible()){
       <div class="alert" [ngClass]="{ 
-          'alert-success' : typeOfAlert() === 'success',
-          'alert-info' : typeOfAlert() === 'info',
-          'alert-error' : typeOfAlert() === 'error',
+          'alert-success' : alertService.typeOfAlert() === 'success',
+          'alert-info' : alertService.typeOfAlert() === 'info',
+          'alert-error' : alertService.typeOfAlert() === 'error',
       }">
         <p> 
           <svg
@@ -20,10 +20,10 @@ import {AlertService} from './alert.service';
             class="stroke-current shrink-0 w-6 h-6"
           >
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                    [attr.d]="icons[typeOfAlert() || 'info']">
+                    [attr.d]="icons[alertService.typeOfAlert() || 'info']">
               </path>
           </svg>
-          {{ msg() }}
+          {{ alertService.msg() }}
         </p>
       </div>
     }
@@ -63,9 +63,6 @@ import {AlertService} from './alert.service';
 export class AlertComponent {
   alertService = inject(AlertService);
   
-  msg = computed(()=>{ return this.alertService.msg() !== '' ? this.alertService.msg() : 'Errore'});
-  isAlertVisible = computed(()=> { return this.alertService.isAlertVisible()});
-  typeOfAlert = computed(()=> { return this.alertService.typeOfAlert()});
   icons = {
     info: 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
     success: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
