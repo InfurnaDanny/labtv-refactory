@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
                     <figcaption>Lo Hobbit</figcaption>
                     <a>
                         <img ngSrc="./../../assets/slider-img/slide1.jpg" alt="Lo Hobbit" title="Lo Hobbit"
-                            height="319" width="1186" priority="high"
+                            height="400" width="1700" priority="high"
                         >
                     </a>
               </figure>
@@ -22,7 +22,7 @@ import { Component } from '@angular/core';
                   <figcaption>The Avengers - Endgame</figcaption>
                     <a>
                         <img ngSrc="./../../assets/slider-img/slide2.jpg" alt="Avengers" title="Avengers"
-                            height="319" width="1186" priority="high"
+                            height="400" width="1700" priority="high"
                         >
                     </a>
               </figure>
@@ -31,7 +31,7 @@ import { Component } from '@angular/core';
                   <figcaption>Transformers - Rise of the Beasts</figcaption>
                   <a>
                     <img ngSrc="./../../assets/slider-img/slide3.jpg" alt="Transformers" title="Transformers"
-                        height="319" width="1186" priority="high"
+                        height="400" width="1700" priority="high"
                     >
                 </a>
               </figure>
@@ -40,7 +40,7 @@ import { Component } from '@angular/core';
                   <figcaption>Your Name.</figcaption>
                   <a>
                     <img ngSrc="./../../assets/slider-img/slide4.jpg" alt="Your Name." title="Your Name."
-                        height="319" width="1186" priority="high"
+                        height="400" width="1700" priority="high"
                     >
                 </a>
               </figure>
@@ -49,7 +49,7 @@ import { Component } from '@angular/core';
                   <figcaption>Venom - La furia di Carnage</figcaption>
                   <a>
                     <img ngSrc="./../../assets/slider-img/slide5.jpg" alt="Venom" title="Venom"
-                        height="319" width="1186" priority="high"
+                        height="400" width="1700" priority="high"
                     >
                 </a>
               </figure>
