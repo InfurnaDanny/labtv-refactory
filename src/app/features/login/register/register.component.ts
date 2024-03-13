@@ -6,13 +6,14 @@ import { AuthService } from '../../../auth/auth.service';
 import { User } from '../../../model/user';
 import { AlertService } from '../../../shared/components/alert.service';
 import { REGEX_EMAIL, REGEX_PASSWORD, REGEX_USERNAME } from '../../../costants';
+import {RouterLink} from '@angular/router';
 
 
 @Component({
   selector: 'app-register',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ReactiveFormsModule, NgOptimizedImage],
+  imports: [CommonModule, ReactiveFormsModule, NgOptimizedImage, RouterLink],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
